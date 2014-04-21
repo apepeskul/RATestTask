@@ -110,7 +110,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     empDto.setFirstName(employee.getFirstName() != null ? employee.getFirstName() : "");
     empDto.setLastName(employee.getLastName() != null ? employee.getLastName() : "");
     empDto.setId(employee.getId());
-    empDto.setSalary(employee.getSalary() != null ? employee.getSalary() : 0);
+    empDto.setSalary(employee.getSalary() != null ? employee.getSalary() : "");
     return empDto;
 
   }

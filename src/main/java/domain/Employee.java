@@ -18,7 +18,7 @@ public class Employee {
   @NotNull
   @Pattern(regexp = "^[a-zA-Z]+$")
   private String lastName;
-  private Double salary;
+  private String salary;
   private Date birthDate;
   private Boolean active;
   @ManyToOne(cascade = CascadeType.ALL)
@@ -56,11 +56,11 @@ public class Employee {
     this.lastName = lastName;
   }
 
-  public Double getSalary() {
+  public String getSalary() {
     return salary;
   }
 
-  public void setSalary(Double salary) {
+  public void setSalary(String salary) {
     this.salary = salary;
   }
 

@@ -140,6 +140,7 @@
                 <version>6.1.26</version>
                 <configuration>
                     <webApp>${basedir}/target/MVCTest.war</webApp>
+                    <contextPath>/</contextPath>
                 </configuration>
             </plugin>
         </plugins>

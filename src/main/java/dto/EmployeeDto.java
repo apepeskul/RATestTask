@@ -1,5 +1,8 @@
 package dto;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
+
 import java.io.Serializable;
 
 import javax.validation.constraints.NotNull;
@@ -8,13 +11,13 @@ import javax.validation.constraints.Pattern;
 public class EmployeeDto implements Serializable {
   private Long id;
   @NotNull
-  @Pattern(regexp = "^[a-zA-Z]+$")
+  @Pattern(regexp = "^[a-zA-Z]+$", message = "Only letters allowed")
   private String firstName;
   @NotNull
-  @Pattern(regexp = "^[a-zA-Z]+$")
+  @Pattern(regexp = "^[a-zA-Z]+$", message = "Only letters allowed")
   private String lastName;
-  /* @Pattern(regexp = "\\d{1,15}\\.\\d{1,2}") */
-  private Double salary;
+  @Pattern(regexp = "^\\d{0,15}\\.\\d{0,2}$", message = "Only digits allowed in %15.2f format")
+  private String salary;
   private String birthDate;
   private Boolean active;
   private int division;
@@ -43,11 +46,11 @@ public class EmployeeDto implements Serializable {
     this.lastName = lastName;
   }
 
-  public Double getSalary() {
+  public String getSalary() {
     return salary;
   }
 
-  public void setSalary(Double salary) {
+  public void setSalary(String salary) {
     this.salary = salary;
   }
 

@@ -1,7 +1,9 @@
 package MVCTest.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -54,10 +56,13 @@ public class HomeController {
      * map.put(dto.getId(), dto.getName()); } */
 
     ModelAndView model = new ModelAndView("home");
+    Map actives = new HashMap();
+    actives.put(0, false);
+    actives.put(1, true);
     model.addObject("divisions", divisionService.findAllAsMap());
     EmployeeDto employeeDto = new EmployeeDto();
-    employeeDto.setSalary(100D);
     model.addObject("emp", employeeDto);
+    model.addObject("actives", actives);
     // model.addObject();
 
     // System.out.println(employeeService.search("Ale?"));
@@ -78,7 +83,7 @@ public class HomeController {
     employeeDto = new EmployeeDto();
 
     mav.addObject("emp", employeeDto);
-
+    mav.setViewName("redirect:/");
     return mav;
 
   }
