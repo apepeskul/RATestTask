@@ -21,7 +21,7 @@
                 { "mDataProp": "salary" },
                 { "mDataProp": "birthDate" },
                 { "mDataProp": "active" },
-                { "mDataProp": "division" },
+                { "mDataProp": "divisionName" },
                 {   "sDefaultContent": "",
                     "fnRender": function (o) {
                         return '<button class="btn-mini btn-warning" id="editBtn' + o.aData["id"] + '" value="' + o.aData["id"] + '" data-toggle="modal">Edit</button>'
@@ -168,7 +168,6 @@
                     #*<form id="userForm" class="form-horizontal" method="POST" action="/addEmp">
 
 
-                    *##*<b>#springMessage("firstName")</b>*##*
 
                         <div class="control-group">
                             <label for="firstName" class="control-label">First Name:</label>
@@ -180,7 +179,7 @@
                         </div>
 
 
-                    *##*<b>#springMessage("lastName") </b>*##*
+
                         <div class="control-group">
                             <label for="lastName" class="control-label">Last Name:</label>
 
@@ -189,8 +188,7 @@
                                 #springShowErrors("<br>" "error")
                             </div>
                         </div>
-                    *##*##*springMessage("birthDate")*##*
-                        <div class="control-group">
+                                <div class="control-group">
                             <label for="birthdate" class="control-label">Birth date:</label>
 
                             <div class="controls">
@@ -290,7 +288,7 @@
                 </div>
                 <div class="modal-body" id="body" style="max-height: 600px">
                     <div class="span4" style="margin-top: 30px" >
-                        <form id="editForm" class="form-horizontal" method="POST" action="/addEmp">
+                        <form id="editForm" class="form-horizontal" method="POST" action="/emp/update">
 
 
                         #*<b>#springMessage("firstName")</b>*#

@@ -2,6 +2,7 @@ package dao;
 
 import java.util.List;
 
+import dto.DataTablesDto;
 import org.springframework.transaction.annotation.Transactional;
 
 import domain.Employee;
@@ -25,7 +26,7 @@ public interface EmployeeDao {
 
   public List<Employee> findAll();
 
-  public List<Employee> findPagedAndSorted(String sSearch, Integer pageSize, Integer startEntry, int sortColumnIndex, String sortDirection);
+  public List<DataTablesDto> findPagedAndSorted(String sSearch, Integer pageSize, Integer startEntry, String sortColumnIndex, String sortDirection);
 
   public int getAllCount();
 

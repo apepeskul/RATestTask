@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import dto.DataTablesDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
@@ -75,7 +76,7 @@ public class HomeController {
 
     DataTableParamModel dt = DataTablesParamUtility.getParameters(request);
 
-    List<EmployeeDto> result = employeeService.findForDatatables(dt);
+    List<DataTablesDto> result = employeeService.findForDatatables(dt);
     Gson gson = new Gson();
     JsonObject jsonResponse = new JsonObject();
     try {
@@ -110,7 +111,8 @@ public class HomeController {
 
    @RequestMapping (value = "/emp/update")
     public String updateEmployee(@Valid EmployeeDto employeeDto, BindingResult br){
-       return null;
+       employeeService.update(employeeDto);
+       return "redirect:/";
    }
 
 }

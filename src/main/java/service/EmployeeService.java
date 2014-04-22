@@ -3,6 +3,7 @@ package service;
 import java.util.List;
 
 import MVCTest.controller.DataTableParamModel;
+import dto.DataTablesDto;
 import dto.EmployeeDto;
 
 public interface EmployeeService {
@@ -19,7 +20,7 @@ public interface EmployeeService {
 
   List<EmployeeDto> findAll();
 
-  List<EmployeeDto> findForDatatables(DataTableParamModel paramModel);
+  List<DataTablesDto> findForDatatables(DataTableParamModel paramModel);
 
   int getAllCount();
 

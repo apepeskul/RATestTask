@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import dto.DataTablesDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,10 +59,26 @@ public class EmployeeServiceImpl implements EmployeeService {
   }
 
   @Override
-  public List<EmployeeDto> findForDatatables(DataTableParamModel paramModel) {
-    String sSearch = "%" + paramModel.sSearch.replaceAll("\\*", "\\%").replaceAll("\\?", "\\_") + "%";
-    return makeDtos(employeeDao.findPagedAndSorted(sSearch, paramModel.iDisplayLength, paramModel.iDisplayStart, paramModel.iSortColumnIndex,
-        paramModel.sSortDirection));
+  public List<DataTablesDto> findForDatatables(DataTableParamModel paramModel) {
+    String sSearch = paramModel.sSearch.replaceAll("\\*", "\\%").replaceAll("\\?", "\\_");
+    if (sSearch.equals("")){
+    sSearch="%";}
+
+    String sortColumn;
+    switch (paramModel.iSortColumnIndex){
+        case 0: sortColumn = "e.id"; break;
+        case 1: sortColumn = "e.firstName"; break;
+        case 2: sortColumn = "e.lastName"; break;
+        case 3: sortColumn = "e.salary"; break;
+        case 4: sortColumn = "e.birthDate"; break;
+        case 5: sortColumn = "e.active"; break;
+        case 6: sortColumn = "e.id"; break;
+        default: sortColumn = "e.id"; break;
+    }
+    return employeeDao.findPagedAndSorted(sSearch, paramModel.iDisplayLength, paramModel.iDisplayStart, sortColumn,
+            paramModel.sSortDirection);
+    /*makeDtos(employeeDao.findPagedAndSorted(sSearch, paramModel.iDisplayLength, paramModel.iDisplayStart, sortColumn ,
+        paramModel.sSortDirection));*/
   }
 
   @Override
@@ -103,7 +120,7 @@ public class EmployeeServiceImpl implements EmployeeService {
   }
 
   private EmployeeDto makeDto(Employee employee) {
-    EmployeeDto empDto = new EmployeeDto();
+    DataTablesDto empDto = new DataTablesDto();
     empDto.setActive(employee.getActive() != null ? employee.getActive() : false);
     empDto.setBirthDate(employee.getBirthDate() != null ? employee.getBirthDate().toString() : "");
     empDto.setDivision(employee.getDivision() != null ? employee.getDivision().getId().intValue() : 0);
@@ -111,6 +128,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     empDto.setLastName(employee.getLastName() != null ? employee.getLastName() : "");
     empDto.setId(employee.getId());
     empDto.setSalary(employee.getSalary() != null ? employee.getSalary() : "");
+    empDto.setDivisionName(employee.getDivision() != null ? employee.getDivision().getName():"");
+
     return empDto;
 
   }

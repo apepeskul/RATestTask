@@ -35,7 +35,7 @@ public class DataTableParamModel {
   /**
    * the index of the column currently sorted
    */
-  public int iSortColumnIndex;
+  public Integer iSortColumnIndex;
 
   /**
    * the sorting direction ("asc" or desc")
