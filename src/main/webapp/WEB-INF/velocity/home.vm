@@ -1,9 +1,12 @@
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+<script src="../../resources/bootstrap.js"></script>
+<script src="../../resources/bootstrap_confirmation.js"></script>
 <script type="text/javascript" charset="utf8"
         src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.js"></script>
 <script type="text/javascript" src="../../resources/DT_bootstrap.js">
 </script>
+
 <script type="text/javascript">
     $(document).ready(function () {
         $("#emptable").dataTable({
@@ -11,6 +14,26 @@
             "sAjaxSource": "/datatables",
             "bServerSide": true,
             "bJQueryUI": true,
+            "aoColumns": [
+                { "mDataProp": "id" },
+                { "mDataProp": "firstName" },
+                { "mDataProp": "lastName" },
+                { "mDataProp": "salary" },
+                { "mDataProp": "birthDate" },
+                { "mDataProp": "active" },
+                { "mDataProp": "division" },
+                {   "sDefaultContent": "",
+                    "fnRender": function (o) {
+                        return '<button class="btn-mini btn-warning" id="editBtn' + o.aData["id"] + '" value="' + o.aData["id"] + '" data-toggle="modal">Edit</button>'
+                    }
+                },
+                {   "sDefaultContent": "",
+                    "fnRender": function (o) {
+                        return '<input type="button" id="delete/' + o.aData["id"] + '" class="btn btn-danger btn-mini"  value="Delete" data-toggle="confirmation" data-href="/emp/delete/' + o.aData["id"] + '" />'
+                    }
+                }
+
+            ],
             "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
             "sPaginationType": "bootstrap",
             "oLanguage": {
@@ -22,19 +45,62 @@
                 [5, 10, 25, "All"]
             ],
             "bProcessing": true,
-            "aoColumns": [
-                { "mDataProp": "id" },
-                { "mDataProp": "firstName" },
-                { "mDataProp": "lastName" },
-                { "mDataProp": "salary" },
-                { "mDataProp": "birthDate" },
-                { "mDataProp": "active" },
-                { "mDataProp": "division" }
-
-            ]
+            "fnDrawCallback": function () {
+                $("[id^=delete]").confirmation({singleton: true, popout: true});
+            }
         });
     });
 </script>
+
+<script type="text/javascript">
+    $(document).on("click", "[id^=editBtn]", function () {
+
+
+        jQuery.getJSON("rest/emp/" + $(this).val(), function (data) {
+                $('#myModal').modal({
+                keyboard: false
+            })
+            $('#firstName').val(data.firstName);
+            $('#lastName').val(data.lastName);
+            $('#birthDate').val(data.birthDate);
+            $('#salary').val(data.salary);
+            $('#actives').val(data.actives);
+            $('#id').val(data.id);
+
+
+        });
+    })
+
+
+    /*  $.getJSON("users/"+$(this).val(), function(user){
+
+                  //$("[id^=modalRole]").removeAttr('checked');
+                  $('#myModal').modal({
+                      keyboard: false
+                  })
+
+                  $('#modalLogin').val(user.login);
+                  $('#modalFirstName').val(user.firstName);
+                  $('#modalLastName').val(user.lastName);
+                  $('#modalEmail').val(user.email);
+                  $('#modalPassword').val(user.password);
+                  $('#modalRegion').val(user.region);
+                  $('#modalId').val(user.id);
+                  $('#modalConfirmPassword').val(user.password);
+
+                  $("#modalRole"+user.role.id).prop('checked', true);
+
+              }
+      );*/
+    /*$('#myModal').on('hidden', function() {
+        $("[id^=modalRole]").prop('checked', false);
+        $(this).removeData('modal');
+
+    });*/
+
+
+</script>
+
 
 <script type="text/javascript">
 
@@ -48,15 +114,7 @@
 </script>
 
 <style>
-    label.valid {
-        width: 24px;
-        height: 24px;
-        background: url(/static/img/valid.png) center center no-repeat;
-        display: inline-block;
-        text-indent: -9999px;
-    }
-
-    label.error {
+    .error {
         font-weight: bold;
         color: red;
         padding: 2px 8px;
@@ -105,42 +163,39 @@
                     <h2 align="center">New employee:</h2>
 
 
-                #* #foreach($active in $actives)
-                     $active
-                 #end*#
                     <br/>
 
-                    <form id="userForm" class="form-horizontal" method="POST" action="/addEmp">
+                    #*<form id="userForm" class="form-horizontal" method="POST" action="/addEmp">
 
 
-                    #*<b>#springMessage("firstName")</b>*#
+                    *##*<b>#springMessage("firstName")</b>*##*
 
                         <div class="control-group">
                             <label for="firstName" class="control-label">First Name:</label>
 
                             <div class="controls">
                                 #springFormInput("emp.firstName" 'id="firstName"')<br/>
-                                #springShowErrors("<br>" "")
+                                #springShowErrors("<br>" "error")
                             </div>
                         </div>
 
 
-                    #*<b>#springMessage("lastName") </b>*#
+                    *##*<b>#springMessage("lastName") </b>*##*
                         <div class="control-group">
                             <label for="lastName" class="control-label">Last Name:</label>
 
                             <div class="controls">
                                 #springFormInput("emp.lastName" 'id="lastName"')<br/>
-                                #springShowErrors("<br>" "")
+                                #springShowErrors("<br>" "error")
                             </div>
                         </div>
-                    #*#springMessage("birthDate")*#
+                    *##*##*springMessage("birthDate")*##*
                         <div class="control-group">
                             <label for="birthdate" class="control-label">Birth date:</label>
 
                             <div class="controls">
                                 #springFormInput("emp.birthDate" 'id="birthdate"')<br/>
-                                #springShowErrors("<br>" "")
+                                #springShowErrors("<br>" "error")
                             </div>
                         </div>
 
@@ -149,7 +204,7 @@
 
                             <div class="controls">
                                 #springFormInput("emp.salary" 'id="salary"')<br/>
-                                #springShowErrors("<br>" "")
+                                #springShowErrors("<br>" "error")
                             </div>
                         </div>
 
@@ -157,8 +212,9 @@
                             <label for="active" class="control-label">Is active?:</label>
 
                             <div class="controls">
-                                #springFormRadioButtons("emp.active" $actives  "<br>"'id=actives') <br/>
-                            #*#springFormSingleSelect( "emp.division" $divisions 'id="divisions')<br/>*#
+                                <input type="radio" name="active" value="0" id=actives checked> Yes<br>
+                                <input type="radio" name="active" value="1" id=actives> No <br/>
+
                             </div>
                         </div>
 
@@ -166,7 +222,7 @@
                             <label for="divisions" class="control-label">Division:</label>
 
                             <div class="controls">
-                                #springFormSingleSelect( "emp.division" $divisions 'id="divisions')<br/>
+                                #springFormSingleSelect( "emp.division" $divisions 'id="divisions"')<br/>
                             </div>
                         </div>
                         <div class="row" style="border-top: InactiveBorder; border-bottom: inactiveborder">
@@ -178,27 +234,14 @@
                                 </div>
                             </div>
                         </div>
-
-                    #*   $status.errorMessages
-                       #if($status.errors.hasErrors())
-                       ## Global error messages
-                           #foreach($e in $status.errorMessages)
-                               <p>${e}</p>
-                           #end
-                       ## Field error messages
-                           #foreach($f in $status.errors.fieldErrors)
-                               #springBind("emp.${f.field}")*#
-
-                    #* #end
-                    #end*#
-                    </form>
+                    </form>*#
 
                 </div>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="span8 offset2">
+        <div class="span10 offset2">
 
             <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered table-hover"
                    id="emptable">
@@ -211,6 +254,8 @@
                     <th>Birth Date</th>
                     <th>Active</th>
                     <th>Division</th>
+                    <th>&nbsp;</th>
+                    <th>&nbsp;</th>
 
                 </tr>
                 </thead>
@@ -225,7 +270,8 @@
                     <th>Birth Date</th>
                     <th>Active</th>
                     <th>Division</th>
-
+                    <th>&nbsp;</th>
+                    <th>&nbsp;</th>
                 </tr>
                 </tfoot>
             </table>
@@ -233,6 +279,92 @@
     </div>
 </div>
 
+<div class="row">
+    <div class="modal fade hide" style="width: 740px" id="myModal" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Edit user</h4>
+                </div>
+                <div class="modal-body" id="body" style="max-height: 600px">
+                    <div class="span4" style="margin-top: 30px" >
+                        <form id="editForm" class="form-horizontal" method="POST" action="/addEmp">
+
+
+                        #*<b>#springMessage("firstName")</b>*#
+                            #springFormHiddenInput("emp.id" 'id="ModalId"') <br/>
+                            <div class="control-group">
+                                <label for="firstName" class="control-label">First Name:</label>
+
+                                <div class="controls">
+                                    #springFormInput("emp.firstName" 'id="firstName"')<br/>
+                                    #springShowErrors("<br>" "error")
+                                </div>
+                            </div>
+
+
+                        #*<b>#springMessage("lastName") </b>*#
+                            <div class="control-group">
+                                <label for="lastName" class="control-label">Last Name:</label>
+
+                                <div class="controls">
+                                    #springFormInput("emp.lastName" 'id="lastName"')<br/>
+                                    #springShowErrors("<br>" "error")
+                                </div>
+                            </div>
+                        #*#springMessage("birthDate")*#
+                            <div class="control-group">
+                                <label for="birthdate" class="control-label">Birth date:</label>
+
+                                <div class="controls">
+                                    #springFormInput("emp.birthDate" 'id="birthdate"')<br/>
+                                    #springShowErrors("<br>" "error")
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label for="salary" class="control-label">Salary:</label>
+
+                                <div class="controls">
+                                    #springFormInput("emp.salary" 'id="salary"')<br/>
+                                    #springShowErrors("<br>" "error")
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label for="active" class="control-label">Is active?:</label>
+
+                                <div class="controls" id="actives">
+                                    <input type="radio" name="active" value="0"> Yes<br>
+                                    <input type="radio" name="active" value="1"> No <br/>
+
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label for="divisions" class="control-label">Division:</label>
+
+                                <div class="controls" id="divisions">
+                                    #springFormSingleSelect( "emp.division" $divisions 'id="divisions')<br/>
+                                </div>
+                            </div>
+
+                        </div>
+                </div>
+
+                <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <input type="submit" id="modalSubmit" value="Save changes" class="btn btn-primary"/>
+                </form>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
 </body>
 
 

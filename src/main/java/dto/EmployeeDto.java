@@ -1,8 +1,5 @@
 package dto;
 
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.NumberFormat;
-
 import java.io.Serializable;
 
 import javax.validation.constraints.NotNull;

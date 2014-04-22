@@ -79,7 +79,7 @@ public class EmployeeDaoImpl extends HibernateDaoSupport implements EmployeeDao 
   public List<Employee> findPagedAndSorted(String sSearch, Integer pageSize, Integer startEntry, int sortColumnIndex, String sortDirection) {
 
     Query query = getCurrentSession().createQuery(
-        "from domain.Employee e where e.firstName like :sSearch or e.lastName like :sSearch order by " + (sortColumnIndex+1) + " " + sortDirection);
+        "from domain.Employee e where e.firstName like :sSearch or e.lastName like :sSearch order by " + (sortColumnIndex + 1) + " " + sortDirection);
     query.setFirstResult(startEntry);
     query.setMaxResults(pageSize);
     List<Employee> empList = query.setParameter("sSearch", sSearch).list();

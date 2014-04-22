@@ -21,7 +21,7 @@ public class Employee {
   private String salary;
   private Date birthDate;
   private Boolean active;
-  @ManyToOne(cascade = CascadeType.ALL)
+  @ManyToOne(cascade = CascadeType.PERSIST)
   private Division division;
 
   public Division getDivision() {

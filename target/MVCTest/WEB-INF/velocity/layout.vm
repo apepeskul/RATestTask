@@ -1,11 +1,19 @@
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+
 <link rel="stylesheet" type="text/css"
       href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css">
-
+<link rel="stylesheet" type="text/css"
+      href="https://raw.githubusercontent.com/apepeskul/SoftserveApplication/master/src/main/webapp/static/css/DT_bootstrap.css">
+<link rel="stylesheet" type="text/css"
+      href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/themes/cupertino/jquery-ui.css"/>
+<link rel="stylesheet" type="text/css"
+      href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-responsive.min.css"/>
+<link rel="stylesheet" type="text/css" href="http://getbootstrap.com/examples/sticky-footer/sticky-footer.css"/>
 <html>
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title> $!page_title </title>
-    <meta name="generator" content="editplus">
+
 </head>
 
 <body>
