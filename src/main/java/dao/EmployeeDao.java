@@ -2,10 +2,10 @@ package dao;
 
 import java.util.List;
 
-import dto.DataTablesDto;
 import org.springframework.transaction.annotation.Transactional;
 
 import domain.Employee;
+import dto.DataTablesDto;
 
 @Transactional
 public interface EmployeeDao {

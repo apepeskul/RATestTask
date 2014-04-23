@@ -1,4 +1,4 @@
-package MVCTest.controller;
+package controller;
 
 public class DataTableParamModel {
 

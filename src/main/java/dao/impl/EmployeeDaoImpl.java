@@ -3,11 +3,9 @@ package dao.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import dto.DataTablesDto;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
@@ -15,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import dao.EmployeeDao;
 import domain.Employee;
+import dto.DataTablesDto;
 
 @Repository
 public class EmployeeDaoImpl extends HibernateDaoSupport implements EmployeeDao {
@@ -82,25 +81,26 @@ public class EmployeeDaoImpl extends HibernateDaoSupport implements EmployeeDao 
   public List<DataTablesDto> findPagedAndSorted(String sSearch, Integer pageSize, Integer startEntry, String sortColumnIndex, String sortDirection) {
 
     Query query = getCurrentSession().createQuery(
-        //"from domain.Employee e where e.firstName like :sSearch or e.lastName like :sSearch order by " + sortColumnIndex  + " " + sortDirection);
-            "select e.id, e.firstName,  e.lastName, e.salary, e.birthDate,  e.active, e.division.name from domain.Employee e left outer join e.division " +
-                    "where e.firstName like :sSearch or e.lastName like :sSearch order by " + sortColumnIndex  + " " + sortDirection);
-            query.setFirstResult(startEntry);
+    // "from domain.Employee e where e.firstName like :sSearch or e.lastName like :sSearch order by " + sortColumnIndex + " " +
+    // sortDirection);
+        "select e.id, e.firstName,  e.lastName, e.salary, e.birthDate,  e.active, e.division.name from domain.Employee e left outer join e.division "
+            + "where e.firstName like :sSearch or e.lastName like :sSearch order by " + sortColumnIndex + " " + sortDirection);
+    query.setFirstResult(startEntry);
     query.setMaxResults(pageSize);
-    List <Object[]> empList = query.setParameter("sSearch", sSearch).list();
-    List <DataTablesDto> dtoList =  new ArrayList<DataTablesDto>();
-      for(Object[] obj : empList) {
-          DataTablesDto dto = new DataTablesDto();
+    List<Object[]> empList = query.setParameter("sSearch", sSearch).list();
+    List<DataTablesDto> dtoList = new ArrayList<DataTablesDto>();
+    for(Object[] obj : empList) {
+      DataTablesDto dto = new DataTablesDto();
 
-          dto.setId(obj[0]!=null?(Long)obj[0]:0);
-          dto.setFirstName(obj[1]!=null?(String) obj[1]:"");
-          dto.setLastName(obj[2]!=null?(String) obj[2]:"");
-          dto.setSalary(obj[3]!=null?(String) obj[3]:"");
-          dto.setBirthDate(obj[4]!=null?obj[4].toString():"");
-          dto.setActive(obj[5]!=null?(Boolean) obj[5]:false);
-          dto.setDivisionName(obj[6]!=null?(String) obj[6]:"");
-          dtoList.add(dto);
-      }
+      dto.setId(obj[0] != null ? (Long) obj[0] : 0);
+      dto.setFirstName(obj[1] != null ? (String) obj[1] : "");
+      dto.setLastName(obj[2] != null ? (String) obj[2] : "");
+      dto.setSalary(obj[3] != null ? (String) obj[3] : "");
+      dto.setBirthDate(obj[4] != null ? obj[4].toString() : "");
+      dto.setActive(obj[5] != null ? (Boolean) obj[5] : false);
+      dto.setDivisionName(obj[6] != null ? (String) obj[6] : "");
+      dtoList.add(dto);
+    }
     return dtoList;
   }
 

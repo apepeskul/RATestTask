@@ -18,6 +18,7 @@ public class Employee {
   @NotNull
   @Pattern(regexp = "^[a-zA-Z]+$")
   private String lastName;
+
   private String salary;
   private Date birthDate;
   private Boolean active;

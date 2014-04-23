@@ -2,7 +2,7 @@ package service;
 
 import java.util.List;
 
-import MVCTest.controller.DataTableParamModel;
+import controller.DataTableParamModel;
 import dto.DataTablesDto;
 import dto.EmployeeDto;
 

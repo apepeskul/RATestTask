@@ -1,9 +1,13 @@
 package dto;
 
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 public class DivisionDto implements Serializable {
   private Long id;
+    @Pattern(regexp = "^[a-zA-Z]+$", message = "Must contain only letters")
+
   private String name;
 
   public DivisionDto(Long id, String name) {
@@ -15,7 +19,10 @@ public class DivisionDto implements Serializable {
     this.name = name;
   }
 
-  public Long getId() {
+    public DivisionDto() {
+    }
+
+    public Long getId() {
     return id;
   }
 
