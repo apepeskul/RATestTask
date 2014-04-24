@@ -113,9 +113,8 @@
                         } else {
                             jQuery("#msg").html("Form submitted");
                             $('#myModal').modal('hide');
-                            var $empTable =
-                            $("#emptable").dataTable({ bRetrieve: true });
-                                $empTable.fnDraw();
+                            var $empTable = $("#emptable").dataTable({ bRetrieve: true });
+                            $empTable.fnDraw();
 
                         }
                     }).fail(function (data) {
