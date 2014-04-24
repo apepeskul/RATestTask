@@ -4,3 +4,13 @@
     padding: 2px 8px;
     margin-top: 2px;
 }
+
+.span10 {
+    background-color: #eee;
+    border: 1px solid #888;
+    border-radius: 3px;
+}
+
+.span12 {
+    margin-left: 10px;
+}

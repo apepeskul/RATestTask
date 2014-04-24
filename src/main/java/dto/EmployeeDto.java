@@ -8,13 +8,14 @@ import javax.validation.constraints.Pattern;
 public class EmployeeDto implements Serializable {
   private Long id;
   @NotNull
-  @Pattern(regexp = "^[a-zA-Z]+$", message = "Only letters allowed")
+  @Pattern(regexp = "^[a-zA-Z ]+$", message = "Only letters allowed")
   private String firstName;
   @NotNull
-  @Pattern(regexp = "^[a-zA-Z]+$", message = "Only letters allowed")
+  @Pattern(regexp = "^[a-zA-Z ]+$", message = "Only letters allowed")
   private String lastName;
-  @Pattern(regexp = "^\\d{0,15}\\.\\d{0,2}$", message = "Only digits allowed in %15.2f format")
+  @Pattern(regexp = "^[1-9][0-9]{0,15}(?:.\\d{1,2})?$", message = "Only digits allowed in %15.2f format")
   private String salary;
+  @Pattern(regexp = "^((?:19|20)\\d\\d)[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$", message = "Incorrect date format, use yyyy-mm-dd")
   private String birthDate;
   private Boolean active;
   private int division;

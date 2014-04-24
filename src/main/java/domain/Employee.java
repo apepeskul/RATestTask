@@ -13,16 +13,16 @@ public class Employee {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
   @NotNull
-  @Pattern(regexp = "^[a-zA-Z]+$")
+  @Pattern(regexp = "^[a-zA-Z ]+$")
   private String firstName;
   @NotNull
-  @Pattern(regexp = "^[a-zA-Z]+$")
+  @Pattern(regexp = "^[a-zA-Z ]+$")
   private String lastName;
 
   private String salary;
   private Date birthDate;
   private Boolean active;
-  @ManyToOne(cascade = CascadeType.PERSIST)
+  @ManyToOne(cascade = CascadeType.ALL)
   private Division division;
 
   public Division getDivision() {

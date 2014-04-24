@@ -1,4 +1,3 @@
-
 <script type="text/javascript">
     $(document).ready(function () {
         $("#emptable").dataTable({
@@ -15,11 +14,13 @@
                 { "mDataProp": "active" },
                 { "mDataProp": "divisionName" },
                 {   "sDefaultContent": "",
+                    "bSortable": false,
                     "fnRender": function (o) {
                         return '<button class="btn-mini btn-warning" id="editBtn' + o.aData["id"] + '" value="' + o.aData["id"] + '" data-toggle="modal">Edit</button>'
                     }
                 },
                 {   "sDefaultContent": "",
+                    "bSortable": false,
                     "fnRender": function (o) {
                         return '<input type="button" id="delete/' + o.aData["id"] + '" class="btn btn-danger btn-mini"  value="Delete" data-toggle="confirmation" data-href="/emp/delete/' + o.aData["id"] + '" />'
                     }
@@ -39,13 +40,13 @@
             "bProcessing": true,
             "fnDrawCallback": function () {
                 $("[id^=delete]").confirmation({singleton: true, popout: true});
-   }
+            }
         });
     });
 </script>
 <script type="text/javascript">
     $(document).on("click", "#btnNew", function () {
-
+        document.getElementById("editForm").reset();
         $('#myModal').modal({
             keyboard: false
         })
@@ -64,7 +65,7 @@
     $(document).on("click", "[id^=editBtn]", function () {
 
 
-        jQuery.getJSON("rest/emp/" + $(this).val(), function (data) {
+        jQuery.getJSON("/emp/" + $(this).val(), function (data) {
             $('#myModal').modal({
                 keyboard: false
             })
@@ -88,7 +89,7 @@
         $('#birthDate').datepicker({
 
             firstDay: 1,
-            dateFormat: 'dd-mm-yy'
+            dateFormat: 'yy-mm-dd'
         });
     });
 </script>
@@ -124,11 +125,6 @@
         });
     });
 </script>
-
-<style>
-
-</style>
-
 <html>
 <head>
 
@@ -137,59 +133,69 @@
 
 </head>
 <body>
-<div class="container">
-    <div class="row">
-        <div class="span10 offset1">
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span8 offset2">
             <div class="row" style="border-bottom: inactiveborder">
                 <div class="span7">
                     <input type="button" class="btn btn-primary" id="btnNew" value="Add new">
                     <br/>
+                    <br/>
+                    <br/>
+                    <hr/>
 
                 </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="span10 offset2">
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <div class="well well-large">
 
-            <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered table-hover"
-                   id="emptable">
-                <thead>
-                <tr>
-                    <th>id</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Salary</th>
-                    <th>Birth Date</th>
-                    <th>Active</th>
-                    <th>Division</th>
-                    <th>&nbsp;</th>
-                    <th>&nbsp;</th>
+                <div class="span12">
 
-                </tr>
-                </thead>
-                <tbody>
-                </tbody>
-                <tfoot>
-                <tr>
-                    <th>id</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Salary</th>
-                    <th>Birth Date</th>
-                    <th>Active</th>
-                    <th>Division</th>
-                    <th>&nbsp;</th>
-                    <th>&nbsp;</th>
-                </tr>
-                </tfoot>
-            </table>
+                    <table cellpadding="0" cellspacing="0" border="0"
+                           class="table table-striped table-bordered table-hover"
+                           id="emptable">
+                        <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Salary</th>
+                            <th>Birth Date</th>
+                            <th>Active</th>
+                            <th>Division</th>
+                            <th>&nbsp;</th>
+                            <th>&nbsp;</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <th>id</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Salary</th>
+                            <th>Birth Date</th>
+                            <th>Active</th>
+                            <th>Division</th>
+                            <th>&nbsp;</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div>
         </div>
     </div>
 </div>
 
 <div class="row">
-    <div class="modal fade hide" style="width: 740px" id="myModal" tabindex="-1" role="dialog"
+    <div class="modal fade hide" id="myModal" tabindex="-1" role="dialog"
          aria-labelledby="myModalLabel" aria-hidden="false">
         <div class="modal-dialog">
             <div class="modal-content">

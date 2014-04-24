@@ -53,6 +53,7 @@
         <property name="basename" value="WEB-INF/spring/message.properties"/>
         <property name="defaultEncoding" value="UTF-8"/>
     </bean>
+
     <!--Velocity config-->
     <bean id="velocityConfigurer" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
         <property name="resourceLoaderPath" value="WEB-INF/velocity/"/>

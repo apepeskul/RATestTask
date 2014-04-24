@@ -105,7 +105,21 @@ public class HomeController {
     return jsonResponse.toString();
   }
 
-  @RequestMapping(value = "rest/emp/{id}", produces = { "application/json; charset=UTF-8" })
+
+    @RequestMapping(value = "/datatables/div", produces = { "application/json; charset=UTF-8" })
+    public @ResponseBody
+    String divisionForDT(HttpServletRequest request, HttpServletResponse response) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json; charset=utf-8");
+        List<DivisionDto> divList = divisionService.findAll();
+        Gson gson = new Gson();
+        JsonObject jsonResponse = new JsonObject();
+        jsonResponse.add("aaData", gson.toJsonTree(divList));
+        return jsonResponse.toString();
+
+    }
+
+  @RequestMapping(value = "/emp/{id}", produces = { "application/json; charset=UTF-8" })
   @ResponseBody
   public String getEmployee(@PathVariable("id") int id, Model model) {
     Gson gson = new Gson();
@@ -114,6 +128,16 @@ public class HomeController {
 
     return json;
   }
+
+    @RequestMapping(value = "/div/{id}", produces = { "application/json; charset=UTF-8" })
+    @ResponseBody
+    public String getDivision(@PathVariable("id") int id, Model model) {
+        Gson gson = new Gson();
+        DivisionDto divisionDto =  divisionService.getById(id);
+        String json = gson.toJson(divisionDto);
+
+        return json;
+    }
 
   @RequestMapping(value = "/emp/delete/{id}")
   public String deleteEmployee(@PathVariable("id") Long id) {
@@ -127,7 +151,7 @@ public class HomeController {
     return "redirect:/admin";
   }
 
-  @RequestMapping(value = "div/update", produces = { "application/json; charset=UTF-8" })
+  @RequestMapping(value = "/div/update", produces = { "application/json; charset=UTF-8" })
   public @ResponseBody
   String updateDivision(@Valid DivisionDto divisionDto, BindingResult bindingResult) {
     UserJsonResponse userJsonResponse = new UserJsonResponse();
@@ -152,18 +176,13 @@ public class HomeController {
   String updateEmployee(@Valid EmployeeDto employeeDto, BindingResult bindingResult) {
     UserJsonResponse userJsonResponse = new UserJsonResponse();
     if(!bindingResult.hasErrors()) {
+
       employeeService.update(employeeDto);
     } else {
       Map<String, String> errors = new HashMap<String, String>();
       List<FieldError> fieldErrors = bindingResult.getFieldErrors();
       for(FieldError fieldError : fieldErrors) {
-        /* String[] resolveMessageCodes = ((BeanPropertyBindingResult) bindingResult).resolveMessageCodes(fieldError.getCode()); String
-         * string = resolveMessageCodes[0]; */
-        // System.out.println("resolveMessageCodes : "+string);
-        // String message = messages.getMessage(string+"."+fieldError.getField(), new Object[]{fieldError.getRejectedValue()}, Locale.US);
-
-        // System.out.println("Meassage : "+message);
-        errors.put(fieldError.getField(), fieldError.getDefaultMessage());
+         errors.put(fieldError.getField(), fieldError.getDefaultMessage());
       }
       userJsonResponse.setErrorsMap(errors);
       userJsonResponse.setStatus("ERROR");
@@ -173,18 +192,7 @@ public class HomeController {
     return gson.toJson(userJsonResponse);
   }
 
-  @RequestMapping(value = "/datatables/div", produces = { "application/json; charset=UTF-8" })
-  public @ResponseBody
-  String divisionForDT(HttpServletRequest request, HttpServletResponse response) {
-    HttpHeaders headers = new HttpHeaders();
-    headers.add("Content-Type", "application/json; charset=utf-8");
-    List<DivisionDto> divList = divisionService.findAll();
-    Gson gson = new Gson();
-    JsonObject jsonResponse = new JsonObject();
-    jsonResponse.add("aaData", gson.toJsonTree(divList));
-    return jsonResponse.toString();
 
-  }
 
   // //////////////////////////////////////////////////////////
   class UserJsonResponse {

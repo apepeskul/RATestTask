@@ -7,11 +7,16 @@
                 { "mDataProp": "id" },
                 { "mDataProp": "name" },
                 {   "sDefaultContent": "",
+                "bSortable": false ,
+
                     "fnRender": function (o) {
+
                         return '<button class="btn-mini btn-warning" id="editBtn' + o.aData["id"] + '" value="' + o.aData["id"] + '" data-toggle="modal">Edit</button>'
                     }
                 },
+
                 {   "sDefaultContent": "",
+                "bSortable": false ,
                     "fnRender": function (o) {
                         return '<input type="button" id="delete/' + o.aData["id"] + '" class="btn btn-danger btn-mini"  value="Delete" data-toggle="confirmation" data-href="/div/delete/' + o.aData["id"] + '" />'
                     }
@@ -38,6 +43,7 @@
 
     });
 </script>
+<script src="../../resources/fnReloadAjax.js"></script>
 <script type="text/javascript">
     jQuery(document).ready(function () {
         jQuery("#editForm").submit(function (e) {
@@ -55,14 +61,11 @@
                                 jQuery("[name^='" + key + "']").after(err);
                             }
                         } else {
-                            jQuery("#msg").html("Form submitted");
+                            /*jQuery("#msg").html("Form submitted");*/
                             $('#myModal').modal('hide');
-                            /*var $divtable = $("#divtable").dataTable({ bRetrieve: true });
-                            $divtable.datatable._fnAjaxUpdate();
-                            $divtable.fnDraw();*/
-                            $('#divtable').dataTable()._fnAjaxUpdate();
-                            var $divtable = $("#divtable").dataTable({ bRetrieve: true });
-                            $divtable.fnDraw();
+                            var $divtable =
+                            $("#divtable").dataTable({ bRetrieve: true });
+                                $divtable.fnReloadAjax();
                         }
                     }).fail(function (data) {
                         jQuery("#msg").html("<span class=\"error\">Server failed to process request</span>");
@@ -75,11 +78,35 @@
 
 <script type="text/javascript">
     $(document).on("click", "#btnNew", function () {
+        document.getElementById("editForm").reset();
 
         $('#myModal').modal({
             keyboard: false
         })
     });
+
+</script>
+
+<script type="text/javascript">
+    $(document).on("click", "[id^=editBtn]", function () {
+
+
+        jQuery.getJSON("/div/" + $(this).val(), function (data) {
+            $('#myModal').modal({
+                keyboard: false
+            })
+            $('#id').val(data.id);
+            $('#name').val(data.name);
+
+        });
+    })
+
+</script>
+<script type="text/javascript">
+    $('#myModal').on('hidden', function () {
+        $(this).removeData('.modal');
+    })
+
 
 </script>
 <html>
@@ -90,47 +117,57 @@
 
 </head>
 <body>
-<div class="container">
-    <div class="row">
-        <div class="span10 offset1">
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span8 offset2">
             <div class="row" style="border-bottom: inactiveborder">
                 <div class="span7">
                     <input type="button" class="btn btn-primary" id="btnNew" value="Add new">
                     <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <hr/>
 
                 </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="span10 offset2">
+    <div class="row-fluid">
 
-            <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered table-hover"
-                   id="divtable">
-                <thead>
-                <tr>
-                    <th>id</th>
-                    <th>Division Name</th>
-                    <th>&nbsp;</th>
-                    <th>&nbsp;</th>
-                </tr>
-                </thead>
-                <tbody>
-                </tbody>
-                <tfoot>
-                <tr>
-                    <th>id</th>
-                    <th>Division Name</th>
-                    <th>&nbsp;</th>
-                    <th>&nbsp;</th>
-                </tr>
-                </tfoot>
-            </table>
+        <div class="span10 offset1">
+            <div class="well well-large">
+                <div class="span12">
+
+                    <table cellpadding="0" cellspacing="0" border="0"
+                           class="table table-striped table-bordered table-hover"
+                           id="divtable">
+                        <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Division Name</th>
+                            <th>&nbsp;</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <th>id</th>
+                            <th>Division Name</th>
+                            <th>&nbsp;</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 <div class="row">
-    <div class="modal fade hide" style="width: 740px" id="myModal" tabindex="-1" role="dialog"
+    <div class="modal fade hide" id="myModal" tabindex="-1" role="dialog"
          aria-labelledby="myModalLabel" aria-hidden="false">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -139,14 +176,14 @@
                     <h4 class="modal-title" id="myModalLabel">Add division</h4>
                 </div>
                 <div class="modal-body" id="body" style="max-height: 600px">
-                    <div class="span3" style="margin-top: 30px">
+                    <div class="span2" style="margin-top: 30px">
                         <form id="editForm" class="form-horizontal">
 
                             #springFormHiddenInput("div.id" 'id="divId"') <br/>
                             #springShowErrors("<br>" "error")
                             <div class="control-group">
                                 <label for="divName" class="control-label">Division Name:</label>
-                                #springFormInput("div.name" 'id="divname"')<br/>
+                                #springFormInput("div.name" 'id="divName"')<br/>
                             </div>
 
                             <div id="msg"></div>
@@ -164,4 +201,5 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
+
 </body>

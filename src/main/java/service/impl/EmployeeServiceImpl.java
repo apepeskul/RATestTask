@@ -39,6 +39,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
   @Override
   public void update(EmployeeDto employeeDto) {
+    employeeDto.setFirstName(capitalizeAndTrim(employeeDto.getFirstName()));
+    employeeDto.setLastName(capitalizeAndTrim(employeeDto.getLastName()));
     employeeDao.update(dtoToDomain(employeeDto));
   }
 
@@ -86,7 +88,7 @@ public class EmployeeServiceImpl implements EmployeeService {
       sortColumn = "e.active";
       break;
     case 6:
-      sortColumn = "e.id";
+      sortColumn = "e.division.name";
       break;
     default:
       sortColumn = "e.id";
@@ -148,6 +150,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     return empDto;
 
+  }
+
+  private String capitalizeAndTrim(String tempString) {
+    tempString = tempString.trim();
+    tempString = tempString.substring(0, 1).toUpperCase() + tempString.substring(1).toLowerCase();
+    return tempString;
   }
 
 }

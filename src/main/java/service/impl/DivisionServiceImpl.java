@@ -70,7 +70,8 @@ public class DivisionServiceImpl implements DivisionService {
   }
 
   private Division dtoToDomain(DivisionDto divisionDto) {
-    return new Division(divisionDto.getName());
-
+    Division div = new Division(divisionDto.getName());
+      div.setId(divisionDto.getId());
+      return div;
   }
 }
