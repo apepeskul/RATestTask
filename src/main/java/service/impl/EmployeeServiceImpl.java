@@ -62,7 +62,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
   @Override
   public List<DataTablesDto> findForDatatables(DataTableParamModel paramModel) {
-    String sSearch = paramModel.sSearch.replaceAll("\\*", "\\%").replaceAll("\\?", "\\_");
+    String sSearch = paramModel.sSearch.replaceAll("\\*", "\\%").replaceAll("\\?", "\\_" + "%");
     if(sSearch.equals("")) {
       sSearch = "%";
     }

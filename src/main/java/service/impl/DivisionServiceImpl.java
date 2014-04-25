@@ -71,7 +71,11 @@ public class DivisionServiceImpl implements DivisionService {
 
   private Division dtoToDomain(DivisionDto divisionDto) {
     Division div = new Division(divisionDto.getName());
-      div.setId(divisionDto.getId());
-      return div;
+    div.setId(divisionDto.getId());
+    return div;
+  }
+
+  public void setDao(DivisionDao dao) {
+    this.divisionDao = dao;
   }
 }

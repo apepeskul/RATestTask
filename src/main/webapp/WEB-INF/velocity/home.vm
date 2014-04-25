@@ -113,8 +113,9 @@
                         } else {
                             jQuery("#msg").html("Form submitted");
                             $('#myModal').modal('hide');
-                            var $empTable = $("#emptable").dataTable({ bRetrieve: true });
-                            $empTable.fnDraw();
+                            var $empTable =
+                            $("#emptable").dataTable({ bRetrieve: true });
+                                $empTable.fnDraw();
 
                         }
                     }).fail(function (data) {
@@ -262,7 +263,7 @@
                                 <label for="divisions" class="control-label">Division:</label>
 
                                 <div class="controls" id="divisions">
-                                    #springFormSingleSelect( "emp.division" $divisions 'id="divisions')<br/>
+                                    #springFormSingleSelect( "emp.division" $divisions 'id="divisions"')<br/>
                                 </div>
                             </div>
                             <div id="msg"></div>

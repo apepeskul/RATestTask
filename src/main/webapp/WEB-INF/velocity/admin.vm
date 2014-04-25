@@ -7,7 +7,7 @@
                 { "mDataProp": "id" },
                 { "mDataProp": "name" },
                 {   "sDefaultContent": "",
-                "bSortable": false ,
+                    "bSortable": false,
 
                     "fnRender": function (o) {
 
@@ -16,7 +16,7 @@
                 },
 
                 {   "sDefaultContent": "",
-                "bSortable": false ,
+                    "bSortable": false,
                     "fnRender": function (o) {
                         return '<input type="button" id="delete/' + o.aData["id"] + '" class="btn btn-danger btn-mini"  value="Delete" data-toggle="confirmation" data-href="/div/delete/' + o.aData["id"] + '" />'
                     }

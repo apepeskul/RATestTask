@@ -3,11 +3,12 @@
 <head>
     <title>Login</title>
 
-    <meta charset = "utf-8">
+    <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css">
 
     <script type="static/js/bootstrap.min.js"></script>
     <script type="http://code.jquery.com/jquery-latest.js"></script>
@@ -16,13 +17,16 @@
             margin: auto;
             height: 40%;
             position: absolute;
-            top: 0; left: 0; bottom: 0; right: 0;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
         }
     </style>
 </head>
 
 <body>
-<div class="container" >
+<div class="container">
     <div class="row">
         <div class="span4 offset4 well">
             <legend>Please Sign In</legend>

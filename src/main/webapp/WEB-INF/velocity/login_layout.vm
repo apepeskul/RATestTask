@@ -8,7 +8,7 @@
 <body>
 
 
-$screen_content
+    $screen_content
 
 #parse ("footer.vm")
 

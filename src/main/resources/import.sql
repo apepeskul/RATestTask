@@ -11,8 +11,7 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 -- Dumping data for table ratest.divisions: ~2 rows (approximately)
 /*!40000 ALTER TABLE `divisions` DISABLE KEYS */;
-INSERT INTO `divisions` (`id`, `name`) VALUES
-	(1, 'Financial');
+INSERT INTO divisions (id, name) VALUES	(1, 'Financial');
 /*!40000 ALTER TABLE `divisions` ENABLE KEYS */;
 
 -- Dumping data for table ratest.employees: ~15 rows (approximately)
