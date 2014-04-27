@@ -1,135 +1,8 @@
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#emptable").dataTable({
-
-            "sAjaxSource": "/datatables",
-            "bServerSide": true,
-            "bJQueryUI": true,
-            "aoColumns": [
-                { "mDataProp": "id" },
-                { "mDataProp": "firstName" },
-                { "mDataProp": "lastName" },
-                { "mDataProp": "salary" },
-                { "mDataProp": "birthDate" },
-                { "mDataProp": "active" },
-                { "mDataProp": "divisionName" },
-                {   "sDefaultContent": "",
-                    "bSortable": false,
-                    "fnRender": function (o) {
-                        return '<button class="btn-mini btn-warning" id="editBtn' + o.aData["id"] + '" value="' + o.aData["id"] + '" data-toggle="modal">Edit</button>'
-                    }
-                },
-                {   "sDefaultContent": "",
-                    "bSortable": false,
-                    "fnRender": function (o) {
-                        return '<input type="button" id="delete/' + o.aData["id"] + '" class="btn btn-danger btn-mini"  value="Delete" data-toggle="confirmation" data-href="/emp/delete/' + o.aData["id"] + '" />'
-                    }
-                }
-
-            ],
-            "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
-            "sPaginationType": "bootstrap",
-            "oLanguage": {
-                "sLengthMenu": "_MENU_ records per page"
-            },
-            "iDisplayLength": 5,
-            "aLengthMenu": [
-                [5, 10, 25, -1],
-                [5, 10, 25, "All"]
-            ],
-            "bProcessing": true,
-            "fnDrawCallback": function () {
-                $("[id^=delete]").confirmation({singleton: true, popout: true});
-            }
-        });
-    });
-</script>
-<script type="text/javascript">
-    $(document).on("click", "#btnNew", function () {
-        document.getElementById("editForm").reset();
-        $('#myModal').modal({
-            keyboard: false
-        })
-    });
-
-</script>
-<script type="text/javascript">
-    $('#myModal').on('hidden', function () {
-        $(this).removeData('.modal');
-    })
-
-
-</script>
-
-<script type="text/javascript">
-    $(document).on("click", "[id^=editBtn]", function () {
-
-
-        jQuery.getJSON("/emp/" + $(this).val(), function (data) {
-            $('#myModal').modal({
-                keyboard: false
-            })
-            $('#firstName').val(data.firstName);
-            $('#lastName').val(data.lastName);
-            $('#birthDate').val(data.birthDate);
-            $('#salary').val(data.salary);
-            $('#actives').val(data.actives);
-            $('#id').val(data.id);
-
-
-        });
-    })
-
-</script>
-
-
-<script type="text/javascript">
-
-    $(function () {
-        $('#birthDate').datepicker({
-
-            firstDay: 1,
-            dateFormat: 'yy-mm-dd'
-        });
-    });
-</script>
-
-<script type="text/javascript">
-    jQuery(document).ready(function () {
-        jQuery("#editForm").submit(function (e) {
-            jQuery(".error").remove();
-            jQuery.ajax({
-                url: "/emp/update",
-                context: document.body,
-                type: 'post',
-                data: jQuery(this).serialize(),
-
-            }).done(function (res) {
-                        if (res.status === "ERROR") {
-                            for (var key in res.errorsMap) {
-                                var err = "<span class=\"error\" id=\"" + key + "Id\">" + res.errorsMap[key] + "</span>";
-                                jQuery("[name^='" + key + "']").after(err);
-                            }
-                        } else {
-                            jQuery("#msg").html("Form submitted");
-                            $('#myModal').modal('hide');
-                            var $empTable =
-                            $("#emptable").dataTable({ bRetrieve: true });
-                                $empTable.fnDraw();
-
-                        }
-                    }).fail(function (data) {
-                        jQuery("#msg").html("<span class=\"error\">Server failed to process request</span>");
-                    });
-            return false;
-        });
-    });
-</script>
+<script type="text/javascript" src="../../resources/home.js"></script>
 <html>
 <head>
 
-    <title>HR app
-    </title>
+    <title>#springMessage("applicationName")</title>
 
 </head>
 <body>
@@ -152,20 +25,20 @@
         <div class="span10 offset1">
             <div class="well well-large">
 
-                <div class="span12">
+                <div class="span12" id="tablespan">
 
                     <table cellpadding="0" cellspacing="0" border="0"
                            class="table table-striped table-bordered table-hover"
                            id="emptable">
                         <thead>
                         <tr>
-                            <th>id</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Salary</th>
-                            <th>Birth Date</th>
-                            <th>Active</th>
-                            <th>Division</th>
+                            <th>#springMessage("id")</th>
+                            <th>#springMessage('firstName')</th>
+                            <th>#springMessage("lastName")</th>
+                            <th>#springMessage("salary")</th>
+                            <th>#springMessage("birthDate")</th>
+                            <th>#springMessage("active")</th>
+                            <th>#springMessage("division")</th>
                             <th>&nbsp;</th>
                             <th>&nbsp;</th>
 
@@ -175,13 +48,12 @@
                         </tbody>
                         <tfoot>
                         <tr>
-                            <th>id</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Salary</th>
-                            <th>Birth Date</th>
-                            <th>Active</th>
-                            <th>Division</th>
+                            <th>#springMessage('firstName')</th>
+                            <th>#springMessage("lastName")</th>
+                            <th>#springMessage("salary")</th>
+                            <th>#springMessage("birthDate")</th>
+                            <th>#springMessage("active")</th>
+                            <th>#springMessage("division")</th>
                             <th>&nbsp;</th>
                             <th>&nbsp;</th>
                         </tr>
@@ -201,7 +73,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Edit user</h4>
+                    <h4 class="modal-title" id="myModalLabel">#springMessage("modalHaeder")</h4>
                 </div>
                 <div class="modal-body" id="body" style="max-height: 600px">
                     <div class="span4" style="margin-top: 30px">
@@ -212,7 +84,7 @@
                             #springFormHiddenInput("emp.id" 'id="ModalId"') <br/>
 
                             <div class="control-group">
-                                <label for="firstName" class="control-label">First Name:</label>
+                                <label for="firstName" class="control-label">#springMessage("firstName") :</label>
 
                                 <div class="controls">
                                     #springFormInput("emp.firstName" 'id="firstName"')<br/>
@@ -223,7 +95,7 @@
 
                         #*<b>#springMessage("lastName") </b>*#
                             <div class="control-group">
-                                <label for="lastName" class="control-label">Last Name:</label>
+                                <label for="lastName" class="control-label">#springMessage("lastName") :</label>
 
                                 <div class="controls">
                                     #springFormInput("emp.lastName" 'id="lastName"')<br/>
@@ -232,7 +104,7 @@
                             </div>
                         #*#springMessage("birthDate")*#
                             <div class="control-group">
-                                <label for="birthdate" class="control-label">Birth date:</label>
+                                <label for="birthdate" class="control-label">#springMessage("birthDate") :</label>
 
                                 <div class="controls">
                                     #springFormInput("emp.birthDate" 'id="birthdate"')<br/>
@@ -241,7 +113,7 @@
                             </div>
 
                             <div class="control-group">
-                                <label for="salary" class="control-label">Salary:</label>
+                                <label for="salary" class="control-label">#springMessage("salary") :</label>
 
                                 <div class="controls">
                                     #springFormInput("emp.salary" 'id="salary"')<br/>
@@ -250,17 +122,17 @@
                             </div>
 
                             <div class="control-group">
-                                <label for="active" class="control-label">Is active?:</label>
+                                <label for="active" class="control-label">#springMessage("active") ? :</label>
 
                                 <div class="controls" id="actives">
-                                    <input type="radio" name="active" value="1"> Yes<br>
-                                    <input type="radio" name="active" value="0"> No <br/>
+                                    <input type="radio" name="active" value="true"> Yes<br>
+                                    <input type="radio" name="active" value="false"> No <br/>
 
                                 </div>
                             </div>
 
                             <div class="control-group">
-                                <label for="divisions" class="control-label">Division:</label>
+                                <label for="divisions" class="control-label">#springMessage("division") :</label>
 
                                 <div class="controls" id="divisions">
                                     #springFormSingleSelect( "emp.division" $divisions 'id="divisions"')<br/>
@@ -271,8 +143,8 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <input type="submit" id="modalSubmit" value="Save changes" class="btn btn-primary"/>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">#springMessage("label.close")</button>
+                    <input type="submit" id="modalSubmit" value=#springMessage("label.save") class="btn btn-primary"/>
                     </form>
                 </div>
             </div>

@@ -12,34 +12,22 @@
 
     <script type="static/js/bootstrap.min.js"></script>
     <script type="http://code.jquery.com/jquery-latest.js"></script>
-    <style>
-        .well {
-            margin: auto;
-            height: 40%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
-        }
-    </style>
+
+
 </head>
 
 <body>
 <div class="container">
     <div class="row">
         <div class="span4 offset4 well">
-            <legend>Please Sign In</legend>
+            <legend>#springMessage("login")</legend>
             <div class="alert alert-error " hidden="true">
                 <a class="close" data-dismiss="alert" href="#">x</a>Incorrect Username or Password!
             </div>
             <form method="post" action="/j_spring_security_check" accept-charset="UTF-8">
                 <input type="text" class="span4" id="j_username" name="j_username" placeholder="Username">
                 <input type="password" class="span4" id="j_password" name="j_password" placeholder="Password">
-                <label class="checkbox">
-                    <input type="checkbox" name="remember" value="1"> Remember Me
-                </label>
-                <button type="submit" name="commit" class="btn btn-info btn-block">Sign in</button>
+                 <button type="submit" name="commit" class="btn btn-info btn-block">#springMessage("signIn")</button>
             </form>
         </div>
     </div>

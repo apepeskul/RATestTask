@@ -1,27 +1,26 @@
 package dao;
 
-import java.util.List;
-
+import domain.Division;
 import org.springframework.transaction.annotation.Transactional;
 
-import domain.Division;
+import java.util.List;
 
 @Transactional
 public interface DivisionDao {
 
-  public void store(Division division);
+    public void store(Division division);
 
-  public void delete(Division division);
+    public void delete(Division division);
 
-  public void deleteById(Long id);
+    public void deleteById(Long id);
 
-  public void update(Division division);
+    public void update(Division division);
 
-  public Division getById(Long id);
+    public Division getById(Long id);
 
-  public void updateById(Long id);
+    public void updateById(Long id);
 
-  // public Division getByName(String name);
+    // public Division getByName(String name);
 
-  public List<Division> findAll();
+    public List<Division> findAll();
 }

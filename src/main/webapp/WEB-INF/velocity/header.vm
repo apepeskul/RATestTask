@@ -6,12 +6,12 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <a class="brand" href="#">HR application</a>
+            <a class="brand" href="#">#springMessage("applicationName")</a>
 
             <div class="nav-collapse">
                 <ul class="nav">
-                    <li class="active" id="homePage"><a href="/"><i class="icon-home icon-white"></i> Home</a></li>
-                    <li><a href="/admin" id="adminPage"><i class="icon-user icon white"></i> Administration</a></li>
+                    <li class="active" id="homePage"><a href="/"><i class="icon-home icon-white"></i> #springMessage("home")</a></li>
+                    <li><a href="/admin" id="adminPage"><i class="icon-user icon white"></i> #springMessage("adminPanel")</a></li>
 
 
                     <li class="divider-vertical"></li>
@@ -26,7 +26,7 @@
 
                                 <input class="btn btn-primary"
                                        style="clear: left; width: 100%; height: 32px; font-size: 13px;" type="submit"
-                                       name="commit" value="Log out"/>
+                                       name="commit" value=#springMessage("logout")/>
                             </form>
                         </div>
                     </li>

@@ -1,70 +1,77 @@
 package service.impl;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyLong;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
-
 import dao.DivisionDao;
 import domain.Division;
 import dto.DivisionDto;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
-//@RunWith(MockitoJUnitRunner.class)
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyListOf;
+import static org.mockito.Matchers.anyLong;
+import static org.mockito.Mockito.*;
 
-public class DivisionServiceImplTest {
-  @Mock
-  private DivisionDao divDao;
-  @InjectMocks
-  private DivisionServiceImpl service;
 
-  @BeforeClass
-  public void init() {
-    MockitoAnnotations.initMocks(this);
-    when(divDao.getById(anyLong())).thenReturn(new Division());
-    when(divDao.getById(null)).thenThrow(NullPointerException.class);
-    // when(divDao.delete(any(Division.class)))
-  }
+public class DivisionServiceImplTest extends Assert {
+    @Mock
+    private DivisionDao divDao;
+    @InjectMocks
+    private DivisionServiceImpl service;
 
-  @Test
-  public void testAddNew() throws Exception {
+    @BeforeClass
+    public void init() {
+        MockitoAnnotations.initMocks(this);
+        when(divDao.getById(anyLong())).thenReturn(new Division());
+        when(divDao.getById(null)).thenThrow(NullPointerException.class);
+        when(divDao.findAll()).thenReturn(anyListOf(Division.class));
 
-    DivisionDto testDto = new DivisionDto(1L, "Blablabla");
+    }
 
-    service.getById(1);
-    verify(divDao).getById(anyLong());
-    service.addNew(testDto);
-    verify(divDao).store(any(Division.class));
+    @Test
+    public void testAddNew() throws Exception {
 
-  }
+        DivisionDto testDto = new DivisionDto(1L, "Blablabla");
 
-  @Test
-  public void testUpdate() throws Exception {
 
-  }
+        service.addNew(testDto);
+        verify(divDao).store(any(Division.class));
 
-  @Test
-  public void testDeleteById() throws Exception {
+    }
 
-  }
+    @Test
+    public void testUpdate() throws Exception {
+        service.update(new DivisionDto(2L, "randomString"));
 
-  @Test
-  public void testGetById() throws Exception {
+        verify(divDao).store(any(Division.class));
 
-  }
 
-  @Test
-  public void testFindAll() throws Exception {
+    }
 
-  }
+    @Test
+    public void testDeleteById() throws Exception {
 
-  @Test
-  public void testFindAllAsMap() throws Exception {
+        service.deleteById(1L);
+        verify(divDao, times(1)).deleteById(anyLong());
 
-  }
+    }
+
+    @Test
+    public void testGetById() throws Exception {
+        service.getById(1);
+        verify(divDao).getById(anyLong());
+
+    }
+
+
+    @Test
+    public void testFindAllAsMap() throws Exception {
+        service.findAllAsMap();
+        verify(divDao, times(1)).findAll();
+
+
+    }
 }

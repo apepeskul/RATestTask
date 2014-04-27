@@ -1,28 +1,26 @@
 package service;
 
-import java.util.List;
-
 import controller.DataTableParamModel;
 import dto.DataTablesDto;
 import dto.EmployeeDto;
 
+import java.util.List;
+
 public interface EmployeeService {
 
-  List<EmployeeDto> search(String query);
 
-  void addNew(EmployeeDto emp);
 
-  void update(EmployeeDto employeeDto);
+    void update(EmployeeDto employeeDto);
 
-  void deleteById(Long id);
+    void deleteById(Long id);
 
-  EmployeeDto getById(int id);
+    EmployeeDto getById(int id);
 
-  List<EmployeeDto> findAll();
 
-  List<DataTablesDto> findForDatatables(DataTableParamModel paramModel);
 
-  int getAllCount();
+    List<DataTablesDto> findForDatatables(DataTableParamModel paramModel);
 
-  int getCountForQuery(DataTableParamModel dt);
+    int getAllCount();
+
+    int getCountForQuery(DataTableParamModel dt);
 }

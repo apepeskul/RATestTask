@@ -23,7 +23,7 @@
         <property name="packagesToScan" value="domain"/>
         <property name="hibernateProperties">
             <props>
-                <prop key="hibernate.hbm2ddl.auto">create-drop</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
                 <prop key="hibernate.show_sql">true</prop>
                 <!--<prop key="hibernate.hbm2ddl.import_files">../MVCTest/WEB-INF/import.sql</prop>-->
@@ -51,8 +51,13 @@
     <!--MessageSource properties-->
     <bean id="messageSource"
           class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-        <property name="basename" value="WEB-INF/spring/message.properties"/>
+        <property name="basename" value="classpath:message"/>
         <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
+
+    <bean id="localeResolver"
+          class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+        <property name="defaultLocale" value="en"/>
     </bean>
 
     <!--Velocity config-->

@@ -2,48 +2,22 @@ package controller;
 
 public class DataTableParamModel {
 
-  /**
-   * the request sequence number sent by DataTable
-   */
-  public String sEcho;
 
-  /**
-   * the searchText
-   */
-  public String sSearch;
+    public String sEcho;
 
-  /**
-   * the number of entries shown in the table
-   */
-  public int iDisplayLength;
+    public String sSearch;
 
-  /**
-   * the first entry to be shown (used for paging)
-   */
-  public int iDisplayStart;
+    public int iDisplayLength;
 
-  /**
-   * the number of columns
-   */
-  public int iColumns;
+    public int iDisplayStart;
 
-  /**
-   * the number of columns used in sorting
-   */
-  public int iSortingCols;
+    public int iColumns;
 
-  /**
-   * the index of the column currently sorted
-   */
-  public Integer iSortColumnIndex;
+    public int iSortingCols;
 
-  /**
-   * the sorting direction ("asc" or desc")
-   */
-  public String sSortDirection;
+    public Integer iSortColumnIndex;
 
-  /**
-   * list of column names (seperated with a comma)
-   */
-  public String sColumns;
+    public String sSortDirection;
+
+    public String sColumns;
 }

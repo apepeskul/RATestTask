@@ -11,6 +11,17 @@
     border-radius: 3px;
 }
 
-.span12 {
+#tablespan {
     margin-left: 10px;
+}
+
+
+.span4.well{
+    margin: auto;
+    height: 40%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
 }

@@ -8,6 +8,14 @@
     http://www.springframework.org/schema/security/spring-security-3.1.xsd">
     <http use-expressions="true">
         <intercept-url pattern="/" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')"></intercept-url>
+        <intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')"></intercept-url>
+        <intercept-url pattern="/div/**" access="hasRole('ROLE_ADMIN')"></intercept-url>
+        <intercept-url pattern="/emp/update" access="hasRole('ROLE_ADMIN')"></intercept-url>
+        <intercept-url pattern="/emp/delete*" access="hasRole('ROLE_ADMIN')"></intercept-url>
+        <intercept-url pattern="/emp/*" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')"></intercept-url>
+        <intercept-url pattern="/datatables" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')"></intercept-url>
+        <intercept-url pattern="/datatables/div*" access="hasRole('ROLE_ADMIN')"></intercept-url>
+
 
         <form-login login-page="/login"
                     default-target-url="/"
@@ -23,7 +31,9 @@
                 <user name="user" password="user" authorities="ROLE_USER"/>
             </user-service>
         </authentication-provider>
+
     </authentication-manager>
+
 
 
 </beans:beans>

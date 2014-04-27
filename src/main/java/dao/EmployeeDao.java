@@ -1,34 +1,31 @@
 package dao;
 
-import java.util.List;
-
-import org.springframework.transaction.annotation.Transactional;
-
 import domain.Employee;
 import dto.DataTablesDto;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Transactional
 public interface EmployeeDao {
 
-  public void store(Employee emp);
+    public void store(Employee emp);
 
-  public void delete(Employee emp);
 
-  public void deleteById(Long id);
 
-  public void update(Employee emp);
+    public void deleteById(Long id);
 
-  public Employee getById(Long id);
+    public void update(Employee emp);
 
-  public void updateById(Long id);
+    public Employee getById(Long id);
 
-  public List<Employee> searchByName(String query);
 
-  public List<Employee> findAll();
 
-  public List<DataTablesDto> findPagedAndSorted(String sSearch, Integer pageSize, Integer startEntry, String sortColumnIndex, String sortDirection);
+    public List<Employee> findAll();
 
-  public int getAllCount();
+    public List<DataTablesDto> findPagedAndSorted(String sSearch, Integer pageSize, Integer startEntry, String sortColumnIndex, String sortDirection);
 
-  int getCountForQuery(String sSearch);
+    public int getAllCount();
+
+    int getCountForQuery(String sSearch);
 }

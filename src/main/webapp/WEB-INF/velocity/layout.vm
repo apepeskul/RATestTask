@@ -3,7 +3,7 @@
 <link rel="stylesheet" type="text/css"
       href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css"
-      href="https://raw.githubusercontent.com/apepeskul/SoftserveApplication/master/src/main/webapp/static/css/DT_bootstrap.css">
+      href="../../resources/DT_bootstrap.css">
 <link rel="stylesheet" type="text/css"
       href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/themes/cupertino/jquery-ui.css"/>
 <link rel="stylesheet" type="text/css"
