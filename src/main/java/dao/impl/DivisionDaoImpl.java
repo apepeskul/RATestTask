@@ -60,6 +60,7 @@ public class DivisionDaoImpl extends HibernateDaoSupport implements DivisionDao 
         getHibernateTemplate().saveOrUpdate(getById(id));
 
     }
+
     @Override
     public List<Division> findAll() {
         return getHibernateTemplate().loadAll(Division.class);

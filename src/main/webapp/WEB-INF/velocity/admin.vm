@@ -34,7 +34,7 @@
                         <thead>
                         <tr>
                             <th>#springMessage("id")</th>
-                            <th>#springMessage("divisionName")</th>
+                            <th>#springMessage("division")</th>
                             <th>&nbsp;</th>
                             <th>&nbsp;</th>
                         </tr>
@@ -80,15 +80,16 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">#springMessage("label.close")</button>
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">#springMessage("label.close")</button>
                     <input type="submit" id="modalSubmit" value=#springMessage("label.save") class="btn btn-primary"/>
                     </form>
                 </div>
             </div>
         </div>
-        <!-- /.modal-content -->
+
     </div>
-    <!-- /.modal-dialog -->
+
 </div>
 
 </body>

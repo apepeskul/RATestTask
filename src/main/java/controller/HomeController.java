@@ -9,7 +9,6 @@ import dto.EmployeeDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,7 +35,7 @@ public class HomeController {
     DivisionService divisionService;
 
     @RequestMapping(value = "/")
-    public ModelAndView test(HttpServletResponse response) throws IOException {
+    public ModelAndView home() throws IOException {
 
         ModelAndView model = new ModelAndView("home");
 
@@ -49,7 +48,7 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/admin")
-    public ModelAndView admin(HttpServletResponse response) throws IOException {
+    public ModelAndView admin() throws IOException {
 
         ModelAndView model = new ModelAndView("admin");
 
@@ -58,24 +57,7 @@ public class HomeController {
 
     }
 
-/*  @RequestMapping(value = "/addEmp")
-  public ModelAndView addEmployee(ModelAndView mav, @ModelAttribute("emp") @Valid EmployeeDto employeeDto, BindingResult br) {
-    mav.setViewName("home");
-    mav.addObject("divisions", divisionService.findAllAsMap());
-    if(br.hasErrors()) {
-      return mav;
-    }
-    employeeService.addNew(employeeDto);
-
-    employeeDto = new EmployeeDto();
-
-    mav.addObject("emp", employeeDto);
-    mav.setViewName("redirect:/");
-    return mav;
-
-  }*/
-
-    @RequestMapping(value = "/datatables" /* params = "data", headers = "Accept=application/json" */, produces = {"application/json; charset=UTF-8"})
+    @RequestMapping(value = "/datatables", produces = {"application/json; charset=UTF-8"})
     @ResponseBody
     public String data(HttpServletRequest request, HttpServletResponse response) {
         HttpHeaders headers = new HttpHeaders();
@@ -103,7 +85,7 @@ public class HomeController {
     @RequestMapping(value = "/datatables/div", produces = {"application/json; charset=UTF-8"})
     public
     @ResponseBody
-    String divisionForDT(HttpServletRequest request, HttpServletResponse response) {
+    String divisionForDT() {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json; charset=utf-8");
         List<DivisionDto> divList = divisionService.findAll();
@@ -116,7 +98,7 @@ public class HomeController {
 
     @RequestMapping(value = "/emp/{id}", produces = {"application/json; charset=UTF-8"})
     @ResponseBody
-    public String getEmployee(@PathVariable("id") int id, Model model) {
+    public String getEmployee(@PathVariable("id") int id) {
         Gson gson = new Gson();
         EmployeeDto editEmp = employeeService.getById(id);
         return gson.toJson(editEmp);
@@ -124,7 +106,7 @@ public class HomeController {
 
     @RequestMapping(value = "/div/{id}", produces = {"application/json; charset=UTF-8"})
     @ResponseBody
-    public String getDivision(@PathVariable("id") int id, Model model) {
+    public String getDivision(@PathVariable("id") int id) {
         Gson gson = new Gson();
         DivisionDto divisionDto = divisionService.getById(id);
         return gson.toJson(divisionDto);
@@ -166,7 +148,7 @@ public class HomeController {
     @RequestMapping(value = "/emp/update", produces = {"application/json; charset=UTF-8"})
     public
     @ResponseBody
-    String updateEmployee (@Valid EmployeeDto employeeDto, BindingResult bindingResult) {
+    String updateEmployee(@Valid EmployeeDto employeeDto, BindingResult bindingResult) {
         JsonResponse jsonResponse = new JsonResponse();
         if (!bindingResult.hasErrors()) {
 
@@ -185,21 +167,12 @@ public class HomeController {
         return gson.toJson(jsonResponse);
     }
 
-    // //////////////////////////////////////////////////////////
     class JsonResponse {
         private String status;
         private Map<String, String> errorsMap;
 
-        public String getStatus() {
-            return status;
-        }
-
         public void setStatus(String status) {
             this.status = status;
-        }
-
-        public Map<String, String> getErrorsMap() {
-            return errorsMap;
         }
 
         public void setErrorsMap(Map<String, String> errorsMap) {

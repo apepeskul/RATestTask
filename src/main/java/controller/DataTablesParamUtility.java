@@ -31,9 +31,5 @@ public class DataTablesParamUtility {
 
         return parameters;
     }
-    /**
-     * This class represents the parameters of the jQuery DataTable
-     *
-     */
 
 }

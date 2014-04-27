@@ -77,10 +77,9 @@
                 </div>
                 <div class="modal-body" id="body" style="max-height: 600px">
                     <div class="span4" style="margin-top: 30px">
-                        <form id="editForm" class="form-horizontal" #*method="POST" action="/emp/update"*#>
+                        <form id="editForm" class="form-horizontal">
 
 
-                        #*<b>#springMessage("firstName")</b>*#
                             #springFormHiddenInput("emp.id" 'id="ModalId"') <br/>
 
                             <div class="control-group">
@@ -93,7 +92,6 @@
                             </div>
 
 
-                        #*<b>#springMessage("lastName") </b>*#
                             <div class="control-group">
                                 <label for="lastName" class="control-label">#springMessage("lastName") :</label>
 
@@ -102,7 +100,7 @@
                                     #springShowErrors("<br>" "error")
                                 </div>
                             </div>
-                        #*#springMessage("birthDate")*#
+
                             <div class="control-group">
                                 <label for="birthdate" class="control-label">#springMessage("birthDate") :</label>
 
@@ -143,15 +141,16 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">#springMessage("label.close")</button>
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">#springMessage("label.close")</button>
                     <input type="submit" id="modalSubmit" value=#springMessage("label.save") class="btn btn-primary"/>
                     </form>
                 </div>
             </div>
         </div>
-        <!-- /.modal-content -->
+
     </div>
-    <!-- /.modal-dialog -->
+
 </div>
 </body>
 

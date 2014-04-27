@@ -36,12 +36,7 @@ public class EmployeeDaoImpl extends HibernateDaoSupport implements EmployeeDao 
     public void store(Employee emp) {
         getCurrentSession().save(emp);
     }
-/*
-    @Override
-    public void delete(Employee emp) {
-        getHibernateTemplate().delete(emp);
 
-    }*/
 
     @Override
     public void deleteById(Long id) {
@@ -52,23 +47,11 @@ public class EmployeeDaoImpl extends HibernateDaoSupport implements EmployeeDao 
     public void update(Employee emp) {
         getHibernateTemplate().saveOrUpdate(emp);
     }
+
     @Override
     public Employee getById(Long id) {
         return getHibernateTemplate().get(Employee.class, id);
     }
-
-  /*  @Override
-    public void updateById(Long id) {
-        getHibernateTemplate().saveOrUpdate(getById(id));
-
-    }*/
-
-  /*  @Override
-    public List<Employee> searchByName(String query) {
-        Query searchQuery = getCurrentSession().createQuery("from domain.Employee e where e.firstName like :searchkeyword");
-        List<Employee> empList = searchQuery.setParameter("searchkeyword", query).list();
-        return empList;
-    }*/
 
     @Override
     public List<Employee> findAll() {
@@ -115,4 +98,4 @@ public class EmployeeDaoImpl extends HibernateDaoSupport implements EmployeeDao 
         Long count = (Long) query.setParameter("sSearch", sSearch).uniqueResult();
         return count.intValue();
     }
-  }
+}

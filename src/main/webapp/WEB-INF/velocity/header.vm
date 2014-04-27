@@ -10,8 +10,10 @@
 
             <div class="nav-collapse">
                 <ul class="nav">
-                    <li class="active" id="homePage"><a href="/"><i class="icon-home icon-white"></i> #springMessage("home")</a></li>
-                    <li><a href="/admin" id="adminPage"><i class="icon-user icon white"></i> #springMessage("adminPanel")</a></li>
+                    <li class="active" id="homePage"><a href="/"><i
+                            class="icon-home icon-white"></i> #springMessage("home")</a></li>
+                    <li><a href="/admin" id="adminPage"><i
+                            class="icon-user icon white"></i> #springMessage("adminPanel")</a></li>
 
 
                     <li class="divider-vertical"></li>

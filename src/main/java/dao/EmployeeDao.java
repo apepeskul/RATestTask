@@ -12,13 +12,11 @@ public interface EmployeeDao {
     public void store(Employee emp);
 
 
-
     public void deleteById(Long id);
 
     public void update(Employee emp);
 
     public Employee getById(Long id);
-
 
 
     public List<Employee> findAll();

@@ -23,21 +23,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private DivisionDao divisionDao;
 
- /*   @Override
-    public List<EmployeeDto> search(String query) {
-        query = query.replaceAll("\\*", "\\%").replaceAll("\\?", "\\_");
-        return makeDtos(employeeDao.searchByName(query));
-
-    }*/
-
-  /*  @Override
-    public void addNew(EmployeeDto empDto) {
-        Employee employee = dtoToDomain(empDto);
-        employeeDao.store(employee);
-    }*/
-
     @Override
-    public void update(EmployeeDto employeeDto){
+    public void update(EmployeeDto employeeDto) {
         employeeDto.setFirstName(capitalizeAndTrim(employeeDto.getFirstName()));
         employeeDto.setLastName(capitalizeAndTrim(employeeDto.getLastName()));
         employeeDao.update(dtoToDomain(employeeDto));
@@ -53,11 +40,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     public EmployeeDto getById(int id) {
         return makeDto(employeeDao.getById(Long.valueOf(id)));
     }
-
- /*   @Override
-    public List<EmployeeDto> findAll() {
-        return makeDtos(employeeDao.findAll());
-    }*/
 
     @Override
     public List<DataTablesDto> findForDatatables(DataTableParamModel paramModel) {
@@ -94,7 +76,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 break;
         }
         return employeeDao.findPagedAndSorted(sSearch, paramModel.iDisplayLength, paramModel.iDisplayStart, sortColumn, paramModel.sSortDirection);
-        }
+    }
 
     @Override
     public int getAllCount() {
@@ -107,7 +89,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeDao.getCountForQuery(sSearch);
     }
 
-    private Employee dtoToDomain(EmployeeDto empDto) throws NullPointerException{
+    private Employee dtoToDomain(EmployeeDto empDto) throws NullPointerException {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Employee tempEmp = new Employee();
         try {
@@ -142,7 +124,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         empDto.setDivision(employee.getDivision() != null ? employee.getDivision().getId().intValue() : 0);
         empDto.setFirstName(employee.getFirstName() != null ? employee.getFirstName() : "");
         empDto.setLastName(employee.getLastName() != null ? employee.getLastName() : "");
-        empDto.setId(employee.getId()!=null? employee.getId() : 0);
+        empDto.setId(employee.getId() != null ? employee.getId() : 0);
         empDto.setSalary(employee.getSalary() != null ? employee.getSalary() : "");
         empDto.setDivisionName(employee.getDivision() != null ? employee.getDivision().getName() : "");
 
