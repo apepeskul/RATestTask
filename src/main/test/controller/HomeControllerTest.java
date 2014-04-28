@@ -1,5 +1,7 @@
-import controller.HomeController;
+package controller;
 import dto.DivisionDto;
+import org.apache.commons.lang.RandomStringUtils;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -10,9 +12,14 @@ import org.testng.annotations.Test;
 import service.DivisionService;
 import service.EmployeeService;
 
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import java.util.Random;
+
 import static org.mockito.Matchers.anyLong;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 
 public class HomeControllerTest extends Assert {
@@ -24,10 +31,24 @@ public class HomeControllerTest extends Assert {
     @InjectMocks
     HomeController controller;
 
+    @Mock
+    HttpServletRequest request;
+    @Mock
+    HttpServletResponse response;
+
 
     @BeforeClass
     public void init() {
         MockitoAnnotations.initMocks(this);
+        when(request.getParameter("sEcho")).thenReturn(Integer.valueOf(new Random().nextInt()).toString());
+        when(request.getParameter("sSearch")).thenReturn(RandomStringUtils.randomAlphabetic(10));
+        when(request.getParameter("sColumns")).thenReturn(Integer.valueOf(new Random().nextInt()).toString());
+        when(request.getParameter("iDisplayStart")).thenReturn(Integer.valueOf(new Random().nextInt()).toString());
+        when(request.getParameter("iDisplayLength")).thenReturn(Integer.valueOf(new Random().nextInt()).toString());
+        when(request.getParameter("iColumns")).thenReturn(Integer.valueOf(new Random().nextInt()).toString());
+        when(request.getParameter("iSortingCols")).thenReturn(Integer.valueOf(new Random().nextInt()).toString());
+        when(request.getParameter("iSortCol_0")).thenReturn(Integer.valueOf(new Random().nextInt()).toString());
+        when(request.getParameter("sSortDir_0")).thenReturn("asc");
     }
 
     @Test
@@ -84,6 +105,17 @@ public class HomeControllerTest extends Assert {
     public void testDeleteDivision() throws Exception {
         controller.deleteDivision(anyLong());
         verify(divisionService).deleteById(anyLong());
+
+    }
+
+    @Test
+    public void testDate(){
+        DataTableParamModel dt = DataTablesParamUtility.getParameters(request);
+        assertNotNull(dt);
+        assertEquals("asc", dt.sSortDirection);
+        controller.data(request, response);
+        verify(employeeService, times(1)).findForDatatables(any(DataTableParamModel.class));
+
 
     }
 

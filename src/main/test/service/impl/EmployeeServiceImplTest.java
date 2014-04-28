@@ -83,7 +83,7 @@ public class EmployeeServiceImplTest extends Assert {
     public void testUpdate2(EmployeeDto employeeDto) {
         try {
             employeeService.update(employeeDto);
-        } catch (Exception e) {
+            } catch (Exception e) {
             assertEquals(e.getClass(), ParseException.class);
         }
     }
